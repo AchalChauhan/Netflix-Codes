@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Bhai+2&family=Bebas+Neue&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    background-color: rgb(75, 67, 67);
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.349)), url(/img/background.jpg);
+    height: 550px;
+    width: 500px;
+    background-size:cover;
+    background-color: rgba(0, 0, 0, 0.473);
+    background-repeat: no-repeat;
+}
+h1{
+    font-family: 'Bebas Neue', cursive;
+    border-bottom-left-radius: 22deg ;
+    font-size: 65px;
+    color: #e50914;
+    text-align: center;
+
+}
