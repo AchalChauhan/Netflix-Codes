@@ -1,0 +1,17 @@
+{
+    "manifest_version": 3,
+    "name" : "Netflix Codes",
+    "version" : "1.0",
+    "description" : "Sometimes whech you wanna watch a movie you just can't decide what to watch but not anymore this extension will help you find the movie you wanna watch just select type of movie you wanna watch select a genre",
+    "icons" :{
+        "16"  :  "/img/icon16.png",
+        "48"  :  "/img/icon48.png",
+        "128" :  "/img/icon128.png"
+},
+    "action":{
+        
+        "default_icon" : "/img/icon16.png",
+    
+        "default_popup" : "/HTML/popup.html"
+    }
+}
