@@ -60,3 +60,7 @@ h4{
     cursor: text;
     color: #8c8c8c;
 }
+option{
+  color: #8c8c8c ;
+  text-shadow: white;
+}
