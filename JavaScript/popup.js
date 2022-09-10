@@ -1,4 +1,6 @@
-var Netflixdata = [
+
+var Mydata = [
+  ["---Select---", "---Select---", "CODE"],
   ["Action & adventure", "Action comedies", "43040"],
   ["Action & adventure", "Action sf & fantasy", "1568"],
   ["Action & adventure", "Action thrillers", "43048"],
@@ -39,9 +41,17 @@ var Netflixdata = [
   ["Christmas", "British christmas children & family films", "1527064"],
   ["Christmas", "Canadian christmas children & family films", "1721544"],
   ["Christmas", "Christmas children & family films", "1474017"],
-  ["Christmas", "Christmas children & family films for ages 11 to 12", "1477206"],
+  [
+    "Christmas",
+    "Christmas children & family films for ages 11 to 12",
+    "1477206",
+  ],
   ["Christmas", "Christmas children & family films for ages 5 to 7", "147201"],
-  ["Christmas", "Christmas children & family films for ages 8 to 10", "1477204"],
+  [
+    "Christmas",
+    "Christmas children & family films for ages 8 to 10",
+    "1477204",
+  ],
   ["Christmas", "Christmas children & family films from the 1990s", "1476024"],
   ["Christmas", "European christmas children & family films", "1527063"],
   ["Christmas", "Family-friendly christmas films", "1394522"],
@@ -247,31 +257,78 @@ var Netflixdata = [
   ["Thrillers", "Supernatural thrillers", "11140"],
   ["Thrillers", "", ""],
 ];
+let code = 0;
+function makeDropDown(data, filtersAsArray, targetElement) {
+  const filteredArray = filterdArray(data, filtersAsArray);
+  const uniqueList = getUniqueValues(filteredArray, filtersAsArray.length);
+  populateDropDown(targetElement, uniqueList);
+}
+function makeDropDown2(data, filtersAsArray, targetElement) {
+  const filteredArray = filterdArray(data, filtersAsArray);
+  const uniqueList = getUniqueValues(filteredArray, filtersAsArray.length);
+  populateDropDown2(targetElement, uniqueList);
+}
 
-function makeDropDown(data, level1Filter) {
-  const genre = data.filter((r) => r[0] === level1Filter);
+function applyDropDown() {
+  const selectLevel1Value = document.getElementById("level1").value;
+  const selectLevel2 = document.getElementById("level2");
+  makeDropDown(Mydata, [selectLevel1Value], selectLevel2);
+}
 
-  const subGenreSet = new Set();
-  genre.forEach((r) => subGenreSet.add(r[1]));
+function applyDropDown2() {
+  const selectLevel1Value = document.getElementById("level1").value;
+  const selectLevel2Value = document.getElementById("level2").value;
+  const selectLevel3 = document.getElementById("level3");
+  makeDropDown2(Mydata, [selectLevel1Value, selectLevel2Value], selectLevel3);
+}
 
-  const subGenre = [...subGenreSet];
-  const subGenreDropdown = document.getElementById("dropdown2");
-  subGenreDropdown.innerHTML="";
+function afterDocumentLoads() {
+  populateFirstLevelDropDown();
+  applyDropDown();
+}
 
-  subGenre.forEach((item) => {
+function getUniqueValues(data, index) {
+  const uniqueOptions = new Set();
+  data.forEach((r) => uniqueOptions.add(r[index]));
+
+  return [...uniqueOptions];
+}
+
+function populateFirstLevelDropDown() {
+  const uniqueList = getUniqueValues(Mydata, 0);
+  const el = document.getElementById("level1");
+  populateDropDown(el, uniqueList);
+}
+
+function populateDropDown(el, listAsArray) {
+  el.innerHTML = "";
+  listAsArray.forEach((item) => {
     const option = document.createElement("option");
     option.textContent = item;
-    subGenreDropdown.appendChild(option);
+    el.appendChild(option);
+  });
+}
+function populateDropDown2(el, listAsArray) {
+  el.innerHTML = "Genrate Code";
+  listAsArray.forEach((item) => {
+    const btn = document.createElement("button");
+    level3.textContent = item;
+    code = item;
   });
 }
 
-function applyDropdown()
-{
-    const selectGenre = document.getElementById("dropdown1").value;
-    makeDropDown(Netflixdata, selectGenre)
+document.getElementById("level3").addEventListener("click", openNetflix);
+function openNetflix(){
+  let urlStr = "https://www.netflix.com/in/browse/genre/" + code;
+  console.log(urlStr);
+  window.open(urlStr, "_blank");
+
 }
 
+function filterdArray(data, filtersAsArray){
+  return data.filter(r => filtersAsArray.every((item, i) => item === r[i]));
+}
 
-document.getElementById("dropdown1").addEventListener("change", applyDropdown);
-
-document.addEventListener("DOMContentLoaded", applyDropdown);
+document.getElementById("level1").addEventListener("change", applyDropDown);
+document.getElementById("level2").addEventListener("change", applyDropDown2);
+document.addEventListener("DOMContentLoaded", afterDocumentLoads);
